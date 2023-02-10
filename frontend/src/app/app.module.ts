@@ -16,6 +16,9 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 @NgModule({
@@ -35,6 +38,7 @@ import {FormsModule} from '@angular/forms';
     MatTabsModule,
     MatIconModule,
     FormsModule,
+    HttpClientModule
 
   ],
   providers: [],
