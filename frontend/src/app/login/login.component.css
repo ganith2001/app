@@ -7,7 +7,9 @@ body{
 
 
 .example-card {
-    max-width: 400px;
+    max-width: 500px;
+    translate: 0px -100px;
+  
   }
   
   .example-header-image {
@@ -17,6 +19,7 @@ body{
   .center-content {
       margin-top: 100px;
       text-align: -webkit-center;
+     
   }
   .example-form {
     min-width: 150px;
@@ -26,7 +29,7 @@ body{
   
   .example-full-width {
       margin-top: 10px;
-    width: 100%;
+    width: 100px;
   }
   .mat-button{
       margin-top: 10px;

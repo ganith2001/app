@@ -1,0 +1,33 @@
+
+  <h1 style="text-align: center;">Jobs</h1>
+  <br>
+
+  <mat-accordion>
+ 
+    <mat-expansion-panel *ngFor="let job of jobs">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{job.job_role}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{job.location}}
+          </mat-panel-description>
+          <mat-panel-description>
+            CTC : &#8377;{{job.ctc}}
+          </mat-panel-description>
+          <mat-panel-description>
+            Apply By : {{job.apply_by}}
+          </mat-panel-description>
+       
+      </mat-expansion-panel-header>
+      <p>CGPA Required : {{job.cgpa}}</p>
+      <p>Experiance Required : {{job.experiance}}</p>
+      <span>Skills Required : </span>
+      <span *ngFor="let skills of job.requiredSkills">{{skills.requiredSkillsId.skills}} </span>
+      <p>Job Description : {{job.description}}</p>
+     
+      
+      <button style="position: relative;left: 95%;" mat-button>Apply</button>
+    </mat-expansion-panel>
+
+  </mat-accordion>

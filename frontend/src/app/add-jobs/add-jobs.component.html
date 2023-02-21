@@ -1,0 +1,67 @@
+<h1 style="text-align: center;">ADD JOB</h1>
+<div>
+ 
+<form class="example-form">
+
+    <table class="example-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Job Role</mat-label>
+        <input matInput [(ngModel)]="addJobs.job_role" name="job_role" required>
+      </mat-form-field></td>
+   
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Location</mat-label>
+        <input matInput [(ngModel)]="addJobs.location" name="location" required>
+      </mat-form-field></td>
+    </tr></table>
+
+    <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>CTC</mat-label>
+          <input matInput [(ngModel)]="addJobs.ctc" name="ctc" required>
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>CGPA</mat-label>
+          <input matInput [(ngModel)]="addJobs.cgpa" name="cgpa" required>
+        </mat-form-field></td>
+      </tr></table>
+  
+    <p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput [(ngModel)]="addJobs.description" name="description" required></textarea>
+      </mat-form-field>
+      
+    </p>
+  
+    <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>Apply-By</mat-label>
+          <input type="date" matInput [(ngModel)]="addJobs.apply_by" name="apply_by" required> 
+        </mat-form-field></td>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>Experience</mat-label>
+          <input matInput [(ngModel)]="addJobs.experiance" name="experiance" required>
+        </mat-form-field></td>
+      </tr></table>
+
+      <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>Add Skills +</mat-label>
+          <input  matInput [(ngModel)]="skill" name="skill" required>
+        </mat-form-field></td>
+
+        <td>
+            <button (click)="onAddSkills()" class="skillsbtn" mat-raised-butto>ADD</button>
+        </td>
+        </table>
+        <table><tr>
+        <td>
+            <button *ngFor="let sk of addJobs.skills;" mat-button disabled>{{sk}}</button>
+        </td>
+        </tr>
+        </table>
+        <br>
+        <button (click)="onSubmit()" class="skillsbtn" mat-raised-butto>Submit</button>
+  </form>
+</div>

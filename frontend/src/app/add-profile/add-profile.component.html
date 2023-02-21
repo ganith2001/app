@@ -1,0 +1,112 @@
+<h1 style="text-align: center;">ADD PROFILE</h1>
+<div>
+ 
+    <form class="example-form">
+    
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+                <mat-label>Phone no</mat-label>
+                <input matInput [(ngModel)]="profile.phone_no"  name="phone_no" required>
+              </mat-form-field></td>
+       
+          <td><mat-form-field class="example-full-width">
+            <mat-label>experiance</mat-label>
+            <input type="number" matInput [(ngModel)]="profile.experience"  name="experience" required>
+          </mat-form-field></td>
+        </tr></table>
+
+        <p>
+            <mat-form-field class="example-full-width">
+              <mat-label>Address</mat-label>
+              <textarea matInput [(ngModel)]="profile.address" name="address" required></textarea>
+            </mat-form-field>
+            
+          </p>
+
+        <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+          <mat-label>Add Skills +</mat-label>
+          <input  matInput [(ngModel)]="skill"  name="skill" required>
+        </mat-form-field></td>
+
+        <td>
+            <button (click)="addSkills()" class="skillsbtn" mat-raised-butto>ADD</button>
+        </td>
+        </table>
+        <table><tr>
+        <td>
+            <button *ngFor="let sk of profile.skills;" mat-button disabled>{{sk}}</button>
+        </td>
+        </tr>
+        </table>
+        <hr>
+        <p>Education - 1</p>
+
+        <table  class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>College Name</mat-label>
+              <input [disabled]="visible" matInput [(ngModel)]="collegeDetails.college_name"  name="college_name" required>
+            </mat-form-field></td>
+            </table>
+
+        <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Degree</mat-label>
+              <input [disabled]="visible"  matInput [(ngModel)]="collegeDetails.degree"  name="degree" required>
+            </mat-form-field></td>
+         
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Course</mat-label>
+              <input [disabled]="visible"  matInput [(ngModel)]="collegeDetails.course"  name="course" required>
+            </mat-form-field></td>
+          </tr></table>
+
+          <table class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>CGPA</mat-label>
+              <input [disabled]="visible" type="number" matInput [(ngModel)]="collegeDetails.cgpa"  name="cgpa" required>
+            </mat-form-field></td>
+         
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Passout Year</mat-label>
+              <input [disabled]="visible" type="number" matInput [(ngModel)]="collegeDetails.passout_year"  name="passout_year" required>
+            </mat-form-field></td>
+          </tr></table>
+          <button *ngIf="!visible" (click)="addCollege1()"  class="skillsbtn" mat-raised-butto>Add</button>
+          <p>Education - 2 (Optional)</p>
+
+        <table *ngIf="visible" class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>College Name</mat-label>
+              <input [disabled]="visible2"  matInput [(ngModel)]="collegeDetails2.college_name2"  name="college_name2"required>
+            </mat-form-field></td>
+            </table>
+
+        <table *ngIf="visible" class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Degree</mat-label>
+              <input [disabled]="visible2"  matInput  [(ngModel)]="collegeDetails2.degree2"  name="degree2" required>
+            </mat-form-field></td>
+         
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Course</mat-label>
+              <input [disabled]="visible2"x matInput [(ngModel)]="collegeDetails2.course2"  name="course2"  required>
+            </mat-form-field></td>
+          </tr></table>
+
+          <table *ngIf="visible" class="example-full-width" cellspacing="0"><tr>
+            <td><mat-form-field class="example-full-width">
+              <mat-label>CGPA</mat-label>
+              <input [disabled]="visible2" type="number" matInput  [(ngModel)]="collegeDetails2.cgpa2"  name="cgpa2" required>
+            </mat-form-field></td>
+         
+            <td><mat-form-field class="example-full-width">
+              <mat-label>Passout Year</mat-label>
+              <input [disabled]="visible2" type="number" matInput [(ngModel)]="collegeDetails2.passout_year2"  name="passout_year2"  required>
+            </mat-form-field></td>
+          </tr></table>
+          <button *ngIf="(visible && !visible2)" (click)="addCollege2()"  class="skillsbtn" mat-raised-butto>Add</button>
+        <hr>
+        <br>
+        <button (click)="onSubmit()" class="skillsbtn" mat-raised-butto>Submit</button>
+    </form>

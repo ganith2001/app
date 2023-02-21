@@ -11,58 +11,78 @@
                 <mat-tab label="Candidate">
             <mat-tab-group>
               <mat-tab label="Login">
+                <form (ngSubmit)="onCandidateLogin()">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input type="email" matInput placeholder="Email" value="">
+                  <input type="email" matInput placeholder="Email" [(ngModel)]="cLogin.email" name="email" required value="">
                   <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
       
                 <mat-form-field class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input type="password" matInput placeholder="Password">
+                  <input type="password" matInput placeholder="Password" [(ngModel)]="cLogin.password" name="password" required>
                   <mat-icon matSuffix>vpn_key</mat-icon>
                 </mat-form-field>
-                <button mat-button color="primary">Login</button>
+                <button  mat-button color="primary">Login</button>
+                </form>
+                
               </mat-tab>
               
               <mat-tab label="Register">
-                <form (ngSubmit)="onSignup()">
+                
+                <form >
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input type="email" matInput placeholder="Email" value="" [(ngModel)]="user.email" name="email">
+                  <input [disabled]="visible" type="email" matInput placeholder="Email" value="" [(ngModel)]="user.email" name="email"  required >
                   <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
-      
-                <mat-form-field class="example-full-width">
+            
+               <p [hidden]="!visible" >Expires In :  <countdown  #countdown [config]="config" ></countdown>  s</p>
+              <ng-otp-input *ngIf="visible"  (onInputChange)="onOtpChange($event)" [config]="{length:5}" name="otp" required></ng-otp-input> 
+              <button name="btn" (click)="countdown.restart()" (click)="generateOtp()" mat-button color="primary">{{otpbtn}}</button>
+             
+             
+              <mat-form-field *ngIf="visible"   class="example-full-width">
+                <mat-label>Candidate Name</mat-label>
+                <input type="text" matInput placeholder="Candidate Name" [(ngModel)]="user.name" name="name" required>
+                <mat-icon matSuffix>vpn_key</mat-icon>
+              </mat-form-field>
+
+                <mat-form-field *ngIf="visible"   class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input type="password" matInput placeholder="Password" [(ngModel)]="user.password1" name="password1">
+                  <input type="password" matInput placeholder="Password" [(ngModel)]="user.password1" name="password1" required>
                   <mat-icon matSuffix>vpn_key</mat-icon>
                 </mat-form-field>
                 
-                <mat-form-field class="example-full-width">
+                <mat-form-field *ngIf="visible"   class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input type="password" matInput placeholder="Password" [(ngModel)]="user.password2" name="password2">
+                  <input type="password" matInput placeholder="Password" [(ngModel)]="user.password2" name="password2" required>
                   <mat-icon matSuffix>vpn_key</mat-icon>
                 </mat-form-field>
-                <button mat-button color="primary">Register</button>
+
+                <button *ngIf="visible"  (click)="onSignup()"  mat-button color="primary">Register</button>
+               
               </form>
+              
               </mat-tab>
               
             </mat-tab-group>
       </mat-tab>
       <mat-tab label="Employee">
+        <form (ngSubmit)="onRecruiterLogin()">
         <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
-                  <input type="email" matInput placeholder="Email" value="">
+                  <input type="email" matInput placeholder="Email" [(ngModel)]="rLogin.email" name="email" value="" required>
                   <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
       
                 <mat-form-field class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input type="password" matInput placeholder="Password">
+                  <input type="password" matInput placeholder="Password" [(ngModel)]="rLogin.password" name="password" required>
                   <mat-icon matSuffix>vpn_key</mat-icon>
                 </mat-form-field>
                 <button mat-button color="primary">Login</button>
+        </form>
       </mat-tab>
       </mat-tab-group>
           </mat-card-content>

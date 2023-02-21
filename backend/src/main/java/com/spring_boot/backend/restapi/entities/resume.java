@@ -5,7 +5,9 @@ import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -14,7 +16,7 @@ public class resume {
     @Id
     @GeneratedValue(generator="uuid")
     @GenericGenerator(name="uuid",strategy="uuid2")
-    private String resume_id;
+    private String resumeid;
 
     private String file_name;
     private String file_type;
@@ -22,29 +24,27 @@ public class resume {
     @Lob
     private byte[] data;
 
-    private int p_id;
+    @OneToOne
+    @JoinColumn(name="pId")
+    private candidateProfile cProfile;
 
-
+ 
     public resume(){}
 
    
-
-    public resume( String fileName, String fileType, byte[] data, int p_id) {
-       
-        this.file_name = fileName;
-        this.file_type = fileType;
+    public resume(String file_name, String file_type, byte[] data, candidateProfile cProfile) {
+        this.file_name = file_name;
+        this.file_type = file_type;
         this.data = data;
-        this.p_id = p_id;
+        this.cProfile = cProfile;
     }
 
-
-
     public String getId() {
-        return resume_id;
+        return resumeid;
     }
 
     public void setId(String id) {
-        this.resume_id = id;
+        this.resumeid = id;
     }
 
     public String getFileName() {
@@ -72,19 +72,14 @@ public class resume {
     }
 
 
-
-    public int getP_id() {
-        return p_id;
+    public candidateProfile getcProfile() {
+        return cProfile;
     }
 
 
-
-    public void setP_id(int p_id) {
-        this.p_id = p_id;
+    public void setcProfile(candidateProfile cProfile) {
+        this.cProfile = cProfile;
     }
-
-    
-    
 
     
 }

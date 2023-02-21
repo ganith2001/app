@@ -15,8 +15,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {FormsModule} from '@angular/forms';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 import { HttpClientModule } from '@angular/common/http';
+import { NgOtpInputModule } from  'ng-otp-input';
+import { CountdownModule } from 'ngx-countdown';
+import { AddJobsComponent } from './add-jobs/add-jobs.component';
+import { AddProfileComponent } from './add-profile/add-profile.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 
 
@@ -25,7 +31,10 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     NavComponent,
-    LoginComponent
+    LoginComponent,
+    AddJobsComponent,
+    AddProfileComponent,
+    JobsComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +47,10 @@ import { HttpClientModule } from '@angular/common/http';
     MatTabsModule,
     MatIconModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgOtpInputModule,
+    CountdownModule,
+    MatExpansionModule
 
   ],
   providers: [],
