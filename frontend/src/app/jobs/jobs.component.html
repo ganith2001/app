@@ -1,7 +1,7 @@
 
   <h1 style="text-align: center;">Jobs</h1>
   <br>
-
+<div>
   <mat-accordion>
  
     <mat-expansion-panel *ngFor="let job of jobs">
@@ -27,7 +27,9 @@
       <p>Job Description : {{job.description}}</p>
      
       
-      <button style="position: relative;left: 95%;" mat-button>Apply</button>
+      <button *ngIf="!(appliedJobs.indexOf(job.job_id) > -1)"  (click)="onApply(job.job_id)" style="position: relative;left: 95%;" mat-button>Apply</button>
+      <button *ngIf="appliedJobs.indexOf(job.job_id) > -1" [disabled]="true"  (click)="onApply(job.job_id)" style="position: relative;left: 95%;" mat-button>Applied</button>
     </mat-expansion-panel>
 
   </mat-accordion>
+</div>

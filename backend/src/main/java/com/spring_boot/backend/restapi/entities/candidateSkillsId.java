@@ -1,14 +1,13 @@
 package com.spring_boot.backend.restapi.entities;
 
-import jakarta.persistence.Column;
+
+
 import jakarta.persistence.Embeddable;
-import java.io.Serializable;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.*;
-import java.util.*;
+import jakarta.persistence.ManyToOne;
 
 @Embeddable
-public class candidateSkillsId implements Serializable {
+public class candidateSkillsId {
 
     @ManyToOne
     @JoinColumn(name="pId")

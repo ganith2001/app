@@ -1,5 +1,6 @@
 package com.spring_boot.backend.restapi.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -60,6 +61,7 @@ public class dataController {
     private String OTP;
     private Long timestamp;
 
+
     @PostMapping("/candidateSignup")
     public UserCreateResponse add(@RequestBody candidateSignupRequest c){
         
@@ -86,7 +88,9 @@ public class dataController {
         this.timestamp=timeStampSeconds;
         
         Random random = new Random();
-        int otp =random.nextInt(10000,99999);
+        int max=99999;
+        int min=10000;
+        int otp =random.nextInt(max+1-min)+min;
         
         String otp2=Integer.toString(otp);
         this.OTP=otp2;
@@ -201,6 +205,19 @@ public class dataController {
         return dservice.getAppliedJobsByCid(cid);
 
     }
+
+    @GetMapping("/getAppliedJobsIdByCid/{cid}")
+    public List<String> getAppliedJobsIdByCid(@PathVariable String cid){
+        List<String> jobsIds=new ArrayList<>();
+   
+        for(var jobs:dservice.getAppliedJobsByCid(cid)){
+            jobsIds.add(jobs.getAppliedJobsId().getJob().getJob_id());
+        }
+    
+        return jobsIds;
+    }
+
+
 
     @GetMapping("/getCandidatesByJobid/{jobid}")
     public List<candidateProfile> getCandidatesByJobid(@PathVariable String jobid){

@@ -9,8 +9,9 @@ import { Ialljobs } from '../types/jobstype';
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent {
-  
+
   public jobs:Array<Ialljobs>=new Array();
+  public appliedJobs:Array<String>=new Array();
 
   constructor(private service:ServiceService) { }
 
@@ -21,11 +22,20 @@ export class JobsComponent {
       this.jobs= Object.values(data);
       console.log(this.jobs);
 
-    }
-    
+    })
 
-    )
+    this.service.getAppliedJobIds().subscribe(data=>{
+      this.appliedJobs=Object.values(data);
+      console.log(this.appliedJobs);
+
+    })
 
   }
+
+  onApply(job_id:String){
+    this.service.applyJobs(job_id);
+  }
+
+  
 
 }

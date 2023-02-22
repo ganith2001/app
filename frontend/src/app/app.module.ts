@@ -23,6 +23,7 @@ import { CountdownModule } from 'ngx-countdown';
 import { AddJobsComponent } from './add-jobs/add-jobs.component';
 import { AddProfileComponent } from './add-profile/add-profile.component';
 import { JobsComponent } from './jobs/jobs.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 
@@ -34,7 +35,8 @@ import { JobsComponent } from './jobs/jobs.component';
     LoginComponent,
     AddJobsComponent,
     AddProfileComponent,
-    JobsComponent
+    JobsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

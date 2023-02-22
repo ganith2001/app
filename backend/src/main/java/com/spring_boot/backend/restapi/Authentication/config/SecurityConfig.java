@@ -45,7 +45,7 @@ public class SecurityConfig {
 
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/recruiterLogin","/candidateLogin","/otpGenerate","/authentication","/recruiterSignup","/addJobs","/applyJobs","/updateStatus/**","/getSkills","/createProfile","/getProfile/*","/candidateSignup","/upload","/getAppliedJobsByCid/*","/getAllJobs","/getJobsByEmpId/*","/getCandidatesByJobid/*","/deleteJob/*").permitAll()
+                .requestMatchers("/getAppliedJobsIdByCid/*","/recruiterLogin","/candidateLogin","/otpGenerate","/authentication","/recruiterSignup","/addJobs","/applyJobs","/updateStatus/**","/getSkills","/createProfile","/getProfile/*","/candidateSignup","/upload","/getAppliedJobsByCid/*","/getAllJobs","/getJobsByEmpId/*","/getCandidatesByJobid/*","/deleteJob/*").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/download/*")
                 .authenticated().and()

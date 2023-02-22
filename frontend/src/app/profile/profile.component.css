@@ -1,0 +1,10 @@
+.account{
+    transform: scale(4);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+p{
+    text-align: center;
+}

@@ -9,6 +9,8 @@ import { Itoken } from './types/tokentype';
 import { Ijob } from './types/addjobtype';
 import { Iprofile } from './types/addprofiletype';
 import { Ialljobs } from './types/jobstype';
+import { Iapply } from './types/applyjobtype';
+
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +93,25 @@ export class ServiceService {
   getAllJobs():Observable<Ialljobs>{
     return this.http.get<Ialljobs>("http://localhost:8080/getAllJobs");
 
+  }
+
+  applyJobs(job_id:String){
+      const applyJob={cid:"7ba3a9f9-84d4-471a-af47-8b32fd2f672d",job_id:job_id}
+      this.http.post("http://localhost:8080/applyJobs",applyJob).subscribe(response=>{
+        console.log(response);
+        window.location.reload();
+       
+      }
+      )
+  }
+
+  getAppliedJobIds():Observable<any>{
+    var cid="7ba3a9f9-84d4-471a-af47-8b32fd2f672d";
+    return this.http.get("http://localhost:8080/getAppliedJobsIdByCid/"+cid);
+  }
+
+  getProfileDetails():Observable<any>{
+   return this.http.get("http://localhost:8080/getProfile/57f68b19-0413-445c-9d33-f15c755edb6b");
   }
  
 }
