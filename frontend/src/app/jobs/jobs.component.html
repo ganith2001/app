@@ -1,5 +1,5 @@
 
-  <h1 style="text-align: center;">Jobs</h1>
+  <h1 style="text-align: center;">Available Jobs</h1>
   <br>
 <div>
   <mat-accordion>
@@ -26,9 +26,13 @@
       <span *ngFor="let skills of job.requiredSkills">{{skills.requiredSkillsId.skills}} </span>
       <p>Job Description : {{job.description}}</p>
      
-      
-      <button *ngIf="!(appliedJobs.indexOf(job.job_id) > -1)"  (click)="onApply(job.job_id)" style="position: relative;left: 95%;" mat-button>Apply</button>
-      <button *ngIf="appliedJobs.indexOf(job.job_id) > -1" [disabled]="true"  (click)="onApply(job.job_id)" style="position: relative;left: 95%;" mat-button>Applied</button>
+     
+     <button *ngIf="profile.pid==''"  disabled style="color: red;position: relative;left: 70%;" mat-button>Please Create Your Profile Before Applying</button>
+     <button *ngIf="!(profile.pid=='') && (job.apply_by.localeCompare(date)<0) && !(appliedJobs.indexOf(job.job_id) > -1)"  disabled style="color: red;position: relative;left: 70%;" mat-button>You have passed the deadline</button>
+      <button *ngIf="!(appliedJobs.indexOf(job.job_id) > -1 && !(job.apply_by.localeCompare(date)<0)) && !(profile.pid=='') "   (click)="onApply(job.job_id)" style="position: relative;left: 90%;"  mat-button>Apply</button>
+    
+      <button *ngIf="appliedJobs.indexOf(job.job_id) > -1" [disabled]="true"  (click)="onApply(job.job_id)" style="position: relative;left: 90%;" mat-button>Applied</button>
+    
     </mat-expansion-panel>
 
   </mat-accordion>

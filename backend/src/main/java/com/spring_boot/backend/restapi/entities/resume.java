@@ -31,7 +31,7 @@ public class resume {
  
     public resume(){}
 
-   
+
     public resume(String file_name, String file_type, byte[] data, candidateProfile cProfile) {
         this.file_name = file_name;
         this.file_type = file_type;
@@ -39,28 +39,28 @@ public class resume {
         this.cProfile = cProfile;
     }
 
-    public String getId() {
+    public String getResumeid() {
         return resumeid;
     }
 
-    public void setId(String id) {
-        this.resumeid = id;
+    public void setResumeid(String resumeid) {
+        this.resumeid = resumeid;
     }
 
-    public String getFileName() {
+    public String getFile_name() {
         return file_name;
     }
 
-    public void setFileName(String fileName) {
-        this.file_name = fileName;
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
     }
 
-    public String getFileType() {
+    public String getFile_type() {
         return file_type;
     }
 
-    public void setFileType(String fileType) {
-        this.file_type = fileType;
+    public void setFile_type(String file_type) {
+        this.file_type = file_type;
     }
 
     public byte[] getData() {
@@ -71,15 +71,12 @@ public class resume {
         this.data = data;
     }
 
-
     public candidateProfile getcProfile() {
         return cProfile;
     }
 
-
     public void setcProfile(candidateProfile cProfile) {
         this.cProfile = cProfile;
-    }
-
+    }  
     
 }

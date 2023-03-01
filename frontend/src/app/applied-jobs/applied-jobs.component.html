@@ -1,0 +1,32 @@
+<h1 style="text-align: center;">Applied Jobs</h1>
+  <br>
+
+<div>
+    <mat-accordion>
+   
+      <mat-expansion-panel *ngFor="let appliedjob of appliedJobs">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{appliedjob.appliedJobsId.job.job_role}}
+          </mat-panel-title>
+          <mat-panel-description>
+              {{appliedjob.appliedJobsId.job.location}}
+            </mat-panel-description>
+            <mat-panel-description>
+              CTC : &#8377;{{appliedjob.appliedJobsId.job.ctc}}
+            </mat-panel-description>
+            <mat-panel-description style="color: green;">
+              Status : {{appliedjob.status}}
+            </mat-panel-description>
+         
+        </mat-expansion-panel-header>
+        <p>CGPA Required : {{appliedjob.appliedJobsId.job.cgpa}}</p>
+        <p>Experiance Required : {{appliedjob.appliedJobsId.job.experiance}}</p>
+        <span>Skills Required : </span>
+        <span *ngFor="let skills of appliedjob.appliedJobsId.job.requiredSkills">{{skills.requiredSkillsId.skills}} </span>
+        <p>Job Description : {{appliedjob.appliedJobsId.job.description}}</p>
+
+      </mat-expansion-panel>
+  
+    </mat-accordion>
+  </div>

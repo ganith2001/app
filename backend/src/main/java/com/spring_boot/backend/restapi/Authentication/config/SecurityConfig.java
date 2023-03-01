@@ -31,7 +31,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public UserDetailsService candidateDetailsService() {
+    public UserDetailsService userDetailsService() {
      
 
        return new UserInfoUserDetailsService();
@@ -43,11 +43,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        return http.csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/getAppliedJobsIdByCid/*","/recruiterLogin","/candidateLogin","/otpGenerate","/authentication","/recruiterSignup","/addJobs","/applyJobs","/updateStatus/**","/getSkills","/createProfile","/getProfile/*","/candidateSignup","/upload","/getAppliedJobsByCid/*","/getAllJobs","/getJobsByEmpId/*","/getCandidatesByJobid/*","/deleteJob/*").permitAll()
+        return http.csrf().disable().cors().and()
+                .authorizeHttpRequests().requestMatchers("/candidateSignup","/recruiterSignup","/recruiterLogin","/candidateLogin","/otpGenerate").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/download/*")
+                .authorizeHttpRequests().requestMatchers("/getProfile/*","/authenticate","/getCandidateBySkills","/getRecruiterDetails/*","/getCandidateDetails/*","/changePassword/*","/deleteResume/*","/getAllJobs","/getJobsByEmpId/*","/getJobsByEmpId/*","/deleteJobsByJobId/*","/getResume/*","/download/*","/updateCollege/*","/deleteSkills/**","/updateSkills/*","/updateProfile/*","/getAppliedjobsIdJobAndShortLists/*","/getAppliedJobsIdByCid/*","/addJobs","/applyJobs","/updateStatus/**","/getSkills","/createProfile","/upload","/getAppliedJobsByCid/*","/getCandidatesByJobid/*","/deleteJob/*")
                 .authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -68,7 +67,7 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider=new DaoAuthenticationProvider();
 
-        authenticationProvider.setUserDetailsService(candidateDetailsService());
+        authenticationProvider.setUserDetailsService(userDetailsService());
       
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;

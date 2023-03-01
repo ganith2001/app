@@ -1,1 +1,51 @@
-<mat-toolbar> <img cImg height="100%" src="assets/images/ninjacart.webp" width="100" /> </mat-toolbar>
+<mat-toolbar> <img cImg height="100%" src="assets/images/ninjacart.webp" width="100" />
+
+    <span class="example-spacer"></span>
+    <a  [matMenuTriggerFor]="menu3" *ngIf="token.Role=='RECRUITER'">
+      <mat-icon class="example-icon" >account_circle</mat-icon>
+      </a>
+      <mat-menu #menu3="matMenu" >
+          <a mat-menu-item>
+          
+            <span>Emp-ID : {{recuiterDetails.emp_id}}</span>
+          </a>
+
+          <a mat-menu-item>
+          
+            <span>Name : {{recuiterDetails.name}}</span>
+          </a>
+
+          <a mat-menu-item>
+          
+            <span>Email : {{recuiterDetails.email}}</span>
+          </a>
+          
+        </mat-menu>
+
+    <a routerLink="/candidate/jobs" *ngIf="token.Role=='CANDIDATE'"><mat-icon class="example-icon">home</mat-icon></a>
+    <a routerLink="/recruiter/createdJobs" *ngIf="token.Role=='RECRUITER'"><mat-icon class="example-icon">home</mat-icon></a>
+    <a  [matMenuTriggerFor]="menu" *ngIf="token.Role=='CANDIDATE'">
+    <mat-icon class="example-icon" >menu</mat-icon>
+    </a>
+    <mat-menu #menu="matMenu" >
+        <a mat-menu-item routerLink="/candidate/appliedJobs">
+        
+          <span>Applied Jobs</span>
+        </a>
+        
+      </mat-menu>
+
+      <a  [matMenuTriggerFor]="menu2" *ngIf="token.Role=='RECRUITER'">
+        <mat-icon class="example-icon" >menu</mat-icon>
+        </a>
+        <mat-menu #menu2="matMenu" >
+            <a mat-menu-item routerLink="/recruiter/addjobs">
+            
+              <span>Add Jobs</span>
+            </a>
+            
+          </mat-menu>
+   <a *ngIf="token.Role=='CANDIDATE'" routerLink="candidate/profile"> <mat-icon class="example-icon" >account_circle</mat-icon> </a>
+   <a *ngIf="token.sub!=''"><mat-icon (click)="onlogout()" class="example-icon">logout</mat-icon></a>
+
+</mat-toolbar>

@@ -1,9 +1,128 @@
 <h1 style="text-align: center;">PROFILE</h1><br>
-<div>
-<mat-icon class="account">account_circle</mat-icon>
-<br>
-<p>{{profile.cSignup.cid}}</p>
-<p> ganith2001@gmail.com</p>
-<p>Ph-no : </p>
-<p>Address :</p>
+<mat-icon class="account">account_circle</mat-icon> <br>
+<p>{{candidateDetails.name}} </p>
+<p>{{candidateDetails.email}}</p>
+<div *ngIf="profile.pid!=''">
+  <div style="width: 50%;padding-left: 25%;-webkit-text-fill-color: black;">
+  <mat-grid-list cols="2" rowHeight="1:0.20">
+    <mat-grid-tile>
+      <mat-form-field class="example-form-field">
+        <mat-label>Phone Number : </mat-label>
+        <input matInput type="text" [disabled]="phdisable" [(ngModel)]="profile.phone_no" name="phone_no"  value="{{profile.phone_no}}">
+        <button  matSuffix mat-icon-button aria-label="Clear" *ngIf="phdisable" (click)="phdisable=false" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button  matSuffix mat-icon-button aria-label="Clear" *ngIf="!phdisable" (click)="onUpdateProfile(profile.pid)">
+          <mat-icon>save</mat-icon>
+        </button>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile >
+      <mat-form-field class="example-form-field">
+        <mat-label>Experience : </mat-label>
+        <input  matInput type="number" [disabled]="expdisable" [(ngModel)]="profile.experience" name="experience" value="{{profile.experience}}">
+        <button  matSuffix mat-icon-button aria-label="Clear" *ngIf="expdisable" (click)="expdisable=false" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button  matSuffix mat-icon-button aria-label="Clear" *ngIf="!expdisable" (click)="onUpdateProfile(profile.pid)">
+          <mat-icon>save</mat-icon>
+        </button>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile  [colspan]="2">
+      <mat-form-field class="example-form-field" style="width: 90%;">
+        <mat-label>Address :</mat-label>
+        <textarea matInput rows="1"  [(ngModel)]="profile.address" name="address"  value="{{profile.address}}" [disabled]="addressdisable" style="width: 200%;"></textarea>
+        <button  matSuffix mat-icon-button aria-label="Clear" *ngIf="addressdisable" (click)="addressdisable=false" >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button  matSuffix mat-icon-button aria-label="Clear"  *ngIf="!addressdisable" (click)="onUpdateProfile(profile.pid)">
+          <mat-icon>save</mat-icon>
+        </button>
+      </mat-form-field>
+ 
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+      <p>Skills : </p>
+      <button *ngFor="let p of profile.candidateSkills" mat-raised-button (click)="onDeleteSkill(profile.pid,p.cSId.skills)" [disabled]="skilldisable" style="color: black;height: 37px;" >{{p.cSId.skills}} <mat-icon *ngIf="!skilldisable" style="height: 15px;">delete</mat-icon></button>
+       <input  type="text" [(ngModel)]="skill" name="skill" *ngIf="!skilldisable" style="width: 7.5%;">
+       <button mat-icon-button (click)="onAddSkill(profile.pid)"   *ngIf="!skilldisable" > <mat-icon >add_circle</mat-icon></button> 
+       <button mat-icon-button *ngIf="skilldisable" (click)="skilldisable=false"><mat-icon>edit</mat-icon></button>
+    </mat-grid-tile>
+    
+  </mat-grid-list>
+  </div>
+
+
+<div class="table">
+<p style="text-align: left;">Education :</p>
+
+<table >
+    <thead>
+      <tr>
+        <th scope="col">College Name</th>
+        <th scope="col">Degree</th>
+        <th scope="col">Course</th>
+        <th scope="col">CGPA</th>
+        <th scope="col">Passout year</th>
+      </tr>
+    </thead>
+    <tbody>
+     
+
+      <tr *ngIf="0<profile.candidateCollegeDetail.length">
+        <th><input type="text" [(ngModel)]="profile.candidateCollegeDetail[0].college_name" name="college_name"   [disabled]="!(clgid==profile.candidateCollegeDetail[0].clg_id)"  value="{{profile.candidateCollegeDetail[0].college_name}}"></th>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[0].degree" name="degree" [disabled]="!(clgid==profile.candidateCollegeDetail[0].clg_id)"  value="{{profile.candidateCollegeDetail[0].degree}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[0].course" name="course" [disabled]="!(clgid==profile.candidateCollegeDetail[0].clg_id)"  value="{{profile.candidateCollegeDetail[0].course}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[0].cgpa" name="cgpa"  [disabled]="!(clgid==profile.candidateCollegeDetail[0].clg_id)"  value="{{profile.candidateCollegeDetail[0].cgpa}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[0].passout_year" name="passout_year" [disabled]="!(clgid==profile.candidateCollegeDetail[0].clg_id)"  value="{{profile.candidateCollegeDetail[0].passout_year}}"></td>
+        <td *ngIf="!(clgid==profile.candidateCollegeDetail[0].clg_id)"><button  (click)="onEdit(profile.candidateCollegeDetail[0].clg_id)" ><mat-icon>edit</mat-icon></button></td>
+        <td *ngIf="(clgid==profile.candidateCollegeDetail[0].clg_id)"><button  (click)="onUpdateCollege(0)" >Save</button></td>
+      </tr>
+      <tr *ngIf="1<profile.candidateCollegeDetail.length">
+        <th><input type="text"  [(ngModel)]="profile.candidateCollegeDetail[1].college_name" name="college_name"  [disabled]="!(clgid==profile.candidateCollegeDetail[1].clg_id)"  value="{{profile.candidateCollegeDetail[1].college_name}}"></th>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[1].degree" name="degree"  [disabled]="!(clgid==profile.candidateCollegeDetail[1].clg_id)"  value="{{profile.candidateCollegeDetail[1].degree}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[1].course" name="course" [disabled]="!(clgid==profile.candidateCollegeDetail[1].clg_id)"  value="{{profile.candidateCollegeDetail[1].course}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[1].cgpa" name="cgpa"  [disabled]="!(clgid==profile.candidateCollegeDetail[1].clg_id)"  value="{{profile.candidateCollegeDetail[1].cgpa}}"></td>
+        <td><input type="text" [(ngModel)]="profile.candidateCollegeDetail[1].passout_year" name="passout_year" [disabled]="!(clgid==profile.candidateCollegeDetail[1].clg_id)"  value="{{profile.candidateCollegeDetail[1].passout_year}}"></td>
+        <td *ngIf="!(clgid==profile.candidateCollegeDetail[1].clg_id)"><button (click)="onEdit(profile.candidateCollegeDetail[1].clg_id)" ><mat-icon>edit</mat-icon></button></td>
+        <td *ngIf="(clgid==profile.candidateCollegeDetail[1].clg_id)"><button (click)="onUpdateCollege(1)">Save</button></td>
+      </tr>
+      
+    
+    </tbody>
+  </table>
+  <br>
+  <br>
+  
+  </div>
+<div style="padding-left: 45%;">
+  <input  type="file" name="file" id="file" accept=".pdf" (change)="selectFile($event)" >
+  <label  *ngIf="resumedetails.resumeid==''" class="choose" for="file" style="border: solid;padding: 3px;">Choose File</label>
+
+  <button mat-raised-button *ngIf="resumedetails.resumeid==''" (click)="onSubmit(profile.cSignup.cid)">Submit</button> {{file2}}
+  
 </div>
+<div *ngIf="resumedetails.resumeid!=''" style="padding-left: 40%;">
+  <button mat-raised-button  (click)="onDeleteResume(resumedetails.resumeid)">Delete Resume <mat-icon>delete</mat-icon></button>
+  <button mat-raised-button  (click)="onDownload(resumedetails.resumeid)">Download Resume 	<mat-icon>file_download</mat-icon></button>
+</div>
+  
+</div>
+
+<button *ngIf="profile.cSignup.name==''" routerLink="/candidate/addprofile"  class="addbtn" mat-raised-butto>Add Profile</button>
+<br>
+<br>
+
+<input *ngIf="visible" type="password" [(ngModel)]="changePassword.oldpassword" name="oldpassword" >
+<input *ngIf="visible" type="password" [(ngModel)]="changePassword.newpassword" name="newpassword"  >
+<input *ngIf="visible" type="password" [(ngModel)]="changePassword.confirmpassword" name="confirmpassword"  >
+<button *ngIf="visible" (click)="onUpdatePassword()">Submit</button>
+<button *ngIf="!visible" (click)="onChange()" class="addbtn">Change password</button>
+
+{{passwordResponse}}
+
+
+
+
+

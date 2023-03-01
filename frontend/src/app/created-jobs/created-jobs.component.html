@@ -1,0 +1,89 @@
+<h1 style="text-align: center;">Jobs Created By You</h1>
+  <br>
+<div>
+  <mat-accordion>
+ 
+    <mat-expansion-panel *ngFor="let job of jobs">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{job.job_role}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{job.location}}
+          </mat-panel-description>
+          <mat-panel-description>
+            CTC : &#8377;{{job.ctc}}
+          </mat-panel-description>
+          <mat-panel-description>
+            Apply By : {{job.apply_by}}
+          </mat-panel-description>
+       
+      </mat-expansion-panel-header>
+      <p>CGPA Required : {{job.cgpa}}</p>
+      <p>Experiance Required : {{job.experiance}}</p>
+      <span>Skills Required : </span>
+      <span *ngFor="let skills of job.requiredSkills">{{skills.requiredSkillsId.skills}} </span>
+      <p>Job Description : {{job.description}}</p>
+     
+      <button (click)="onDeleteJob(job.job_id)">Delete Job</button>
+      <button  style="position: relative;left: 70%;" (click)="view(job.job_id)" mat-button>View Applied Candidates</button>
+      <div  *ngIf="jobid==job.job_id">
+      <div  style="border: solid;" *ngFor="let profile of profiles" >
+      <table style="width: 100%;">
+        <tbody>
+        <tr>
+         
+          <td>Name : {{profile.cSignup.name}} </td>
+          <td>Email : {{profile.cSignup.email}} </td>
+          <td>Phone_no : {{profile.phone_no}} </td>
+          <td>Experience : {{profile.experience}} </td>
+        </tr>
+        </tbody>
+      </table>
+      <br>
+      <table style="width: 100%;">
+        <tbody>
+        <tr>
+         
+          <td>Address : {{profile.address}} </td>
+          <td>Skills : <span *ngFor="let skills of profile.candidateSkills">{{skills.cSId.skills}} </span> </td>
+      
+        </tr>
+        </tbody>
+      </table>
+
+    <h4>Education :</h4>
+    <table style="width: 100%;">
+      <thead>
+        <tr>
+          <th scope="col">College Name</th>
+          <th scope="col">Degree</th>
+          <th scope="col">Course</th>
+          <th scope="col">CGPA</th>
+          <th scope="col">Passout year</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let college of profile.candidateCollegeDetail">
+          <th>{{college.college_name}}</th>
+          <td class="college">{{college.degree}}</td>
+          <td class="college">{{college.course}}</td>
+          <td class="college">{{college.cgpa}}</td>
+          <td class="college">{{college.passout_year}}</td>
+        </tr>
+      
+      </tbody>
+    </table>
+    <br>
+    <button (click)="onDownload(profile.pid)">Download Resume</button>
+    <button *ngIf="!(shorlisted.indexOf(profile.cSignup.cid)>-1)"  style="position: relative;left: 60%;" (click)="Shortlist(profile.cSignup.cid,job.job_id)" mat-button>Shortlist candidate</button>
+    <button *ngIf="(shorlisted.indexOf(profile.cSignup.cid)>-1)" disabled  style="position: relative;left: 60%;color: green;" mat-button>Shortlisted</button>
+    </div>
+      </div>
+    </mat-expansion-panel>
+
+  </mat-accordion>
+  
+</div>
+
+

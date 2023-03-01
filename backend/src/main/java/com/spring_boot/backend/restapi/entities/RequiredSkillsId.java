@@ -21,8 +21,6 @@ public class RequiredSkillsId {
         this.skills = skills;
     }
 
-  
-
     public String getSkills() {
         return skills;
     }

@@ -11,6 +11,7 @@
                 <mat-tab label="Candidate">
             <mat-tab-group>
               <mat-tab label="Login">
+                <p style="color: red;">{{candidateError}}</p>
                 <form (ngSubmit)="onCandidateLogin()">
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
@@ -29,7 +30,8 @@
               </mat-tab>
               
               <mat-tab label="Register">
-                
+                <p style="color: red;">{{registerEmailError}}</p>
+                <p style="color: red;">{{res}}</p>
                 <form >
                 <mat-form-field class="example-full-width">
                   <mat-label>Email</mat-label>
@@ -69,8 +71,11 @@
             </mat-tab-group>
       </mat-tab>
       <mat-tab label="Employee">
+       
         <form (ngSubmit)="onRecruiterLogin()">
+          <p style="color: red;">{{recruiterError}}</p>
         <mat-form-field class="example-full-width">
+          
                   <mat-label>Email</mat-label>
                   <input type="email" matInput placeholder="Email" [(ngModel)]="rLogin.email" name="email" value="" required>
                   <mat-icon matSuffix>email</mat-icon>

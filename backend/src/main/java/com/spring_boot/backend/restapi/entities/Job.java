@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
+
 import java.sql.Date;
 import jakarta.persistence.GeneratedValue;
 import org.hibernate.annotations.GenericGenerator;
@@ -22,7 +23,6 @@ public class Job {
     @GeneratedValue(generator="uuid")
     @GenericGenerator(name="uuid",strategy="uuid2")
     private String job_id;
-
     private String job_role;
     private int ctc;
     private String location;
@@ -45,6 +45,7 @@ public class Job {
     public Job(String job_id){
         this.job_id=job_id;
     }
+
 
 
     public Job(String job_role, int ctc, String location, Date apply_by, float cgpa,int experiance, String description,
@@ -83,6 +84,8 @@ public class Job {
         this.description = description;
      
     }
+
+    
 
 
     public String getJob_role() {
@@ -149,13 +152,7 @@ public class Job {
         this.recruiterSignup = recruiterSignup;
     }
 
-    public String getJob_id() {
-        return job_id;
-    }
-
-    public void setJob_id(String job_id) {
-        this.job_id = job_id;
-    }
+   
 
     public List<RequiredSkills> getRequiredSkills() {
         return requiredSkills;
@@ -165,7 +162,12 @@ public class Job {
         this.requiredSkills = requiredSkills;
     }
 
-    
-    
+    public String getJob_id() {
+        return job_id;
+    }
+
+    public void setJob_id(String job_id) {
+        this.job_id = job_id;
+    }  
 
 }

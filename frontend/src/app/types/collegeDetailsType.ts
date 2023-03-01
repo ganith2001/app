@@ -1,4 +1,5 @@
 export interface Icollegedetails{
+    clg_id:String,
     college_name:String,
     degree:String,
     course:String,

@@ -2,7 +2,6 @@ package com.spring_boot.backend.restapi.services;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.spring_boot.backend.restapi.repositories.candidateSignupRepository;
 import com.spring_boot.backend.restapi.repositories.resumeRepository;
+
+import jakarta.transaction.Transactional;
 
 import com.spring_boot.backend.restapi.repositories.*;
 import com.spring_boot.backend.restapi.model.*;
@@ -19,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Random;
+
 
 import java.time.Instant;
 
@@ -55,11 +56,6 @@ public class dataservice {
     
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    
-
-    //@Autowired
-    //private JwtUtils jwt;
 
     @Autowired
     private resumeRepository rRepository;
@@ -133,25 +129,9 @@ public class dataservice {
           
     } 
 
+   @Transactional
     public void createProfile(createProfileRequest cPRequest){
-    /*     candidateSignup candidateSignup = new candidateSignup(cPRequest.getcid());
-        List<candidateSkills> skills = new ArrayList<>();
-        for (String sk:cPRequest.getSkills()){
-            candidateSkills cSkills = new candidateSkills(new candidateSkillsId(sk));
-            skills.add(cSkills);
-        }
-
-        List<candidateCollegeDetail> collegeDetails = new ArrayList<>();
-        for(collegeDetailsRequest cD:cPRequest.getcDetails()){
-            candidateCollegeDetail cDetail = new candidateCollegeDetail(cD.getCollege_name(),cD.getDegree(),cD.getCourse(),cD.getCgpa(),cD.getPassout_year());
-            collegeDetails.add(cDetail);
-        }
-
-        candidateProfile candidateProfile = new candidateProfile(cPRequest.getPhone_no(),cPRequest.getAddress(),cPRequest.getExperience(),candidateSignup,skills,collegeDetails);
-     */  
-   // System.out.println(cPRequest.getCandidateProfile().getCandidateSkills());
-   //  this.cPRepository.save(cPRequest.getCandidateProfile());
-   //System.out.println(cPRequest.getSkills());
+    
           candidateSignup cSignup = new candidateSignup(cPRequest.getcid(),null,null,null);
         candidateProfile cProfile = new candidateProfile(cPRequest.getPhone_no(),cPRequest.getAddress(),cPRequest.getExperience(), cSignup);
         cProfile=this.cPRepository.save(cProfile);
@@ -175,8 +155,7 @@ public class dataservice {
 
     public resume saveAttachment(MultipartFile file,String cid) throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        //candidateSignup cSignup = new candidateSignup(cid,null,null,null);
-        //cSignup.setcid(cid);
+      
         candidateProfile cProfile=this.cPRepository.findByCId(cid);
       
         try {
@@ -199,6 +178,10 @@ public class dataservice {
              throw new Exception("Could not save File: " + fileName);
         }
      }
+
+     public void deleteResume(String resumeid){
+        this.rRepository.deleteById(resumeid);
+     }
  
      
      public resume getAttachment(String fileId) throws Exception {
@@ -210,7 +193,7 @@ public class dataservice {
 
 
     
-
+     @Transactional
     public void addJobs(JobsRequest jobRequest){
         
         recruiterSignup rSignup = new recruiterSignup(jobRequest.getEmp_id(),null,null,null);
@@ -224,7 +207,17 @@ public class dataservice {
             requiredSkills.add(rSkills);
         }
 
-        this.requiredSkillsRepository.saveAll(requiredSkills);
+        List<RequiredSkills> RequiredSkills =(List<RequiredSkills>) this.requiredSkillsRepository.saveAll(requiredSkills);
+        if(RequiredSkills.size()>0){
+            List<String> emails = this.getCandidateByskills(jobRequest.getSkills());
+            for(String email:emails){
+                senderService.sendSimpleEmail(email,
+				"New Job Opening",
+				"The New Job Opening with "+job.getJob_role()+" role has been created that matches you skills");
+            }
+            
+        }
+
 
     }
 
@@ -243,9 +236,11 @@ public class dataservice {
         AppliedJob appliedJob = new AppliedJob(new AppliedJobsId(cSignup,job),status);
         this.appliedJobRepository.save(appliedJob);
 
-        senderService.sendSimpleEmail("vganith@ninjacart.com",
-				"This is email body",
-				"This is email subject");
+        candidateSignup candidateSignup=this.cSRepository.findByCid(cid);
+      
+        senderService.sendSimpleEmail(candidateSignup.getEmail(),
+				"Congratulation !!!",
+				"You have been shortlisted !!!");
     }
 
     public candidateProfile getProfile(String cid){
@@ -259,8 +254,9 @@ public class dataservice {
       
     }
 
-    public List<Job> getJobsByEmpid(String empid){
-        return  jobRepository.findByrecruiterSignupEmpid(empid);
+    public List<Job> getJobsByEmpId(String empId){
+        return  jobRepository.findByrecruiterSignupEmpid(empId);
+        
     }
 
     public List<AppliedJob> getAppliedJobsByCid(String cid){
@@ -274,12 +270,76 @@ public class dataservice {
 
     }
 
-
-     public void deleteJobById(String empid){
-     
-        this.jobRepository.deleteByrecruiterSignupEmpid(empid);
+    public List<String> getAppliedjobsIdJobAndShortLists(String job_id){
+  
+        return appliedJobRepository.findByappliedjobsIdJobAndShortLists(job_id);
+  
     }
-    
 
+    public void updateProfile(String pId,UpdateProfileRequest updateProfileRequest){
+        candidateProfile profile=cPRepository.findBypId(pId);
+        profile.setAddress(updateProfileRequest.getAddress());
+        profile.setExperience(updateProfileRequest.getExperience());
+        profile.setPhone_no(updateProfileRequest.getPhone_no());
+   
+        cPRepository.save(profile);
+    }
+
+    public void updateSkills(String pId,String skill){
+        candidateProfile cProfile=new candidateProfile();
+        cProfile.setPId(pId);
+        candidateSkills cSkills = new candidateSkills(new candidateSkillsId(cProfile,skill));
+        cSkRepository.save(cSkills);
+    }
+
+    public void deleteSkills(String pid,String skill){
+       cSkRepository.deleteskill(pid,skill);
+    }
+
+    public void updateCollege(String cid,collegeDetailsRequest collegeDetailsRequest){
+        candidateCollegeDetail candidateCollegeDetail = cCRepository.findByClgid(cid);
+        candidateCollegeDetail.setCollege_name(collegeDetailsRequest.getCollege_name());
+        candidateCollegeDetail.setDegree(collegeDetailsRequest.getDegree());
+        candidateCollegeDetail.setCgpa(collegeDetailsRequest.getCgpa());
+        candidateCollegeDetail.setCourse(collegeDetailsRequest.getCourse());
+        candidateCollegeDetail.setPassout_year(collegeDetailsRequest.getPassout_year());
+
+        cCRepository.save(candidateCollegeDetail);
+
+       
+    }
+
+    public String changePassword(String cid,PassswordRequest passwordRequest){
+        
+        candidateSignup candidateSignup = cSRepository.findByCid(cid);
+        candidateSignup.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+        cSRepository.save(candidateSignup);
+        return "Password Changed Successfully";
+        
+    
+    }
+
+    public candidateSignup getCandidateDetails(String cid){
+        return cSRepository.findByCid(cid);
+    }
+
+    public recruiterSignup getRecruiterDetails(String empid){
+        return rSRepository.findByEmpid(empid);
+    }
+
+    public void deleteJobById(String jobid){
+        
+        appliedJobRepository.deleteByappliedJobsIdJobJob_id(jobid);
+        requiredSkillsRepository.deleteByRequiredSkillsJob_id(jobid);
+        jobRepository.deleteJobsByJob_id(jobid);
+    }
+
+    public resume getResumeDetails(String pid){
+        return this.rRepository.findBycProfilePId(pid);
+    }
+
+    public List<String> getCandidateByskills(List<String> skills){
+        return this.cPRepository.findBycandidateSkills(skills);
+    }
 
 }

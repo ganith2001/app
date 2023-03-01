@@ -34,13 +34,13 @@ public class candidateCollegeDetail {
     public candidateCollegeDetail( String college_name, String degree, String course, float cgpa,
     int passout_year) {
 
-this.college_name = college_name;
-this.degree = degree;
-this.course = course;
-this.cgpa = cgpa;
-this.passout_year = passout_year;
+        this.college_name = college_name;
+        this.degree = degree;
+        this.course = course;
+        this.cgpa = cgpa;
+        this.passout_year = passout_year;
 
-}
+    }
 
 
     public candidateCollegeDetail( String college_name, String degree, String course, float cgpa,
@@ -55,7 +55,15 @@ this.passout_year = passout_year;
     }
 
 
+    
 
+    public String getClg_id() {
+        return clg_id;
+    }
+
+    public void setClg_id(String clg_id) {
+        this.clg_id = clg_id;
+    }
 
     public String getCollege_name() {
         return college_name;

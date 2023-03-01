@@ -21,6 +21,8 @@ export class AddProfileComponent {
 
   addSkills(){
     this.profile.skills.push(this.skill);
+    this.skill="";
+    
   }
 
   addCollege1(){
@@ -39,7 +41,10 @@ export class AddProfileComponent {
   }
 
   onSubmit(){
-    this.service.addProfile(this.profile);
+    if(this.profile.address!="",this.profile.experience!=0,this.profile.phone_no!="",this.profile.skills.length>0,this.profile.cDetails.length>0){
+      this.service.addProfile(this.profile);
+
+    }
   }
 
 }

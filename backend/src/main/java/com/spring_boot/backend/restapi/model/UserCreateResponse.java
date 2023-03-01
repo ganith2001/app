@@ -13,7 +13,5 @@ public class UserCreateResponse {
     public void setRes(String res) {
         this.res = res;
     }
-
-    
-    
+  
 }

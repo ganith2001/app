@@ -19,7 +19,7 @@ public class UserInfoUserDetails implements UserDetails  {
 
 
     public UserInfoUserDetails(candidateSignup userInfo,String role) {
-        name=userInfo.getName();
+        name=userInfo.getCId();
         password=userInfo.getPassword();
         authorities= Arrays.stream(role.split(","))
                 .map(SimpleGrantedAuthority::new)
@@ -27,7 +27,7 @@ public class UserInfoUserDetails implements UserDetails  {
     }
 
     public UserInfoUserDetails(recruiterSignup userInfo,String role) {
-        name=userInfo.getName();
+        name=userInfo.getEmp_id();
         password=userInfo.getPassword();
         authorities= Arrays.stream(role.split(","))
                 .map(SimpleGrantedAuthority::new)

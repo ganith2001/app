@@ -17,6 +17,10 @@ public class candidateSkillsId {
 
     public candidateSkillsId(){}
 
+    public candidateSkillsId(String skills){
+        this.skills=skills;
+    }
+
     
     public candidateSkillsId(candidateProfile candidateProfile, String skills) {
         this.candidateProfile=candidateProfile;

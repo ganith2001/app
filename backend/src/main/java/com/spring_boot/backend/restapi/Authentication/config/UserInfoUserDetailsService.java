@@ -29,13 +29,14 @@ public class UserInfoUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        boolean b = repository.existsByName(username);
+        boolean b = repository.existsByCid(username);
+    
         if(b==true){
-            candidateSignup userInfo = repository.findByName(username);
+            candidateSignup userInfo = repository.findByCid(username);
             return new UserInfoUserDetails(userInfo,"CANDIDATE");
         }
         else{
-            recruiterSignup userInfo2 = rrepository.findByName(username);
+            recruiterSignup userInfo2 = rrepository.findByEmpid(username);
             return new UserInfoUserDetails(userInfo2,"RECRUITER");
         }
 

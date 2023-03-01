@@ -23,8 +23,5 @@ public class RequiredSkills {
     public void setRequiredSkillsId(RequiredSkillsId requiredSkillsId) {
         this.requiredSkillsId = requiredSkillsId;
     }
-
-    
-
     
 }

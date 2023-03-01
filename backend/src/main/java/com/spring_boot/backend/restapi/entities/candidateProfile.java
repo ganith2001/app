@@ -37,7 +37,22 @@ public class candidateProfile {
     @JoinColumn(name="pId",referencedColumnName="pId")
     private List<candidateCollegeDetail> candidateCollegeDetail;
 
+  
+
      public candidateProfile(){}
+
+     public candidateProfile(List<com.spring_boot.backend.restapi.entities.candidateSkills> candidateSkills){
+        this.candidateSkills=candidateSkills;
+     }
+
+
+    public candidateProfile(String pId, String address, int experience,String phone_no) {
+        this.pId=pId;
+        this.phone_no = phone_no;
+        this.address = address;
+        this.experience = experience;
+       
+    }
 
     public candidateProfile(String pId, String address, int experience,String phone_no, candidateSignup cSignup) {
         this.pId=pId;
@@ -73,6 +88,7 @@ public class candidateProfile {
         this.cSignup = cSignup;
   
     }
+
 
     
 

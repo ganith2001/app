@@ -61,8 +61,6 @@ public class recruiterSignup {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
     
 }
 

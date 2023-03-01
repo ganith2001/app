@@ -1,7 +1,7 @@
 package com.spring_boot.backend.restapi.model;
 
 import java.util.List;
-import com.spring_boot.backend.restapi.entities.*;
+
 
 public class createProfileRequest {
 /* 
