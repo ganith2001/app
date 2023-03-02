@@ -17,7 +17,7 @@ export class JobsComponent {
   public appliedJobs:Array<String>=new Array();
   public profile={phone_no:"",address:"",experience:0,cSignup:{cid: "", name: "", email: ""},candidateCollegeDetail:new Array<Icollegedetails>(),candidateSkills:new Array<ICSkills>(),pid:""};
   public date:any;
- 
+  public searched:String="";
   
   constructor(private service:ServiceService) { }
 

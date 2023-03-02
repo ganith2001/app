@@ -25,8 +25,8 @@
       <span *ngFor="let skills of job.requiredSkills">{{skills.requiredSkillsId.skills}} </span>
       <p>Job Description : {{job.description}}</p>
      
-      <button (click)="onDeleteJob(job.job_id)">Delete Job</button>
-      <button  style="position: relative;left: 70%;" (click)="view(job.job_id)" mat-button>View Applied Candidates</button>
+      <button mat-raised-button (click)="onDeleteJob(job.job_id)">Delete Job</button>
+      <button mat-raised-button  style="position: relative;left: 70%;" (click)="view(job.job_id)" mat-button>View Applied Candidates</button>
       <div  *ngIf="jobid==job.job_id">
       <div  style="border: solid;" *ngFor="let profile of profiles" >
       <table style="width: 100%;">
@@ -75,9 +75,9 @@
       </tbody>
     </table>
     <br>
-    <button (click)="onDownload(profile.pid)">Download Resume</button>
-    <button *ngIf="!(shorlisted.indexOf(profile.cSignup.cid)>-1)"  style="position: relative;left: 60%;" (click)="Shortlist(profile.cSignup.cid,job.job_id)" mat-button>Shortlist candidate</button>
-    <button *ngIf="(shorlisted.indexOf(profile.cSignup.cid)>-1)" disabled  style="position: relative;left: 60%;color: green;" mat-button>Shortlisted</button>
+    <button mat-raised-button (click)="onDownload(profile.pid)">Download Resume</button>
+    <button *ngIf="!(shorlisted.indexOf(profile.cSignup.cid)>-1)"  style="position: relative;left: 55%;" (click)="Shortlist(profile.cSignup.cid,job.job_id)" mat-raised-button>Shortlist candidate</button>
+    <button *ngIf="(shorlisted.indexOf(profile.cSignup.cid)>-1)" disabled  style="position: relative;left: 55%;color: green;" mat-raised-button>Shortlisted</button>
     </div>
       </div>
     </mat-expansion-panel>

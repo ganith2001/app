@@ -62,11 +62,20 @@ export class LoginComponent {
   }
 
   generateOtp(){
+    
    if(this.user.email!=''){
+    this.service.getRegisteredUser(this.user.email).subscribe(res=>{
+      if(res==false){
       this.otpbtn="Resend OTP"
-    this.visible=true;
-    this.data=this.user.email;
-      this.service.generateOtp(this.data);
+      this.visible=true;
+      this.data=this.user.email;
+        this.service.generateOtp(this.data);
+      }
+      else if(res==true){
+        this.registerEmailError="This email is already registered"
+      }
+    })
+      
    }
    else{
         this.registerEmailError="Please Enter The EmailId !"
@@ -90,7 +99,7 @@ export class LoginComponent {
         }
         else{
           this.candidateError="Incorrect Email or Password !"
-        }
+        } 
       }
       )
     
@@ -109,8 +118,13 @@ export class LoginComponent {
           this.recruiterError="Incorrect Email or Password !"
         }
       }
-      )
-    
-   
+      ) 
   }
+
+  onForgotPassword(){
+    
+  }
+
+
+
 }

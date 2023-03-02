@@ -113,14 +113,35 @@
 <button *ngIf="profile.cSignup.name==''" routerLink="/candidate/addprofile"  class="addbtn" mat-raised-butto>Add Profile</button>
 <br>
 <br>
-
-<input *ngIf="visible" type="password" [(ngModel)]="changePassword.oldpassword" name="oldpassword" >
-<input *ngIf="visible" type="password" [(ngModel)]="changePassword.newpassword" name="newpassword"  >
-<input *ngIf="visible" type="password" [(ngModel)]="changePassword.confirmpassword" name="confirmpassword"  >
-<button *ngIf="visible" (click)="onUpdatePassword()">Submit</button>
+<diV style="width: 60%;padding-left: 25%;" >
+<mat-grid-list *ngIf="visible" cols="4" rowHeight="1:0.30">
+<mat-grid-tile>
+<mat-form-field *ngIf="visible" class="example-form-field">
+        <mat-label>Old Password : </mat-label>
+        <input matInput  type="password" [(ngModel)]="changePassword.oldpassword" name="oldpassword" >
+  </mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile>
+<mat-form-field *ngIf="visible" class="example-form-field">
+        <mat-label>New Password : </mat-label>
+        <input matInput  type="password" [(ngModel)]="changePassword.newpassword" name="newpassword"  >
+  </mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile>
+<mat-form-field *ngIf="visible" class="example-form-field">
+        <mat-label>Confirm Password : </mat-label>
+        <input matInput type="password" [(ngModel)]="changePassword.confirmpassword" name="confirmpassword"  >
+  </mat-form-field>
+</mat-grid-tile>
+<mat-grid-tile>
+<button mat-raised-button  *ngIf="visible" (click)="onUpdatePassword()">Submit</button>
+</mat-grid-tile>
+</mat-grid-list>
+</diV>
+<p  style="color: red;">{{passwordResponse}}</p><br>
 <button *ngIf="!visible" (click)="onChange()" class="addbtn">Change password</button>
 
-{{passwordResponse}}
+
 
 
 

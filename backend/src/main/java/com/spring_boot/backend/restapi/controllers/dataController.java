@@ -169,10 +169,12 @@ public class dataController {
 
     @PostMapping("/addJobs")
     @PreAuthorize("hasAuthority('RECRUITER')")
-    public ResponseMessage addJob(@RequestBody JobsRequest j){
-        dservice.addJobs(j);
-        ResponseMessage responseMessage = new ResponseMessage();
+    public ResponseAddJobs addJob(@RequestBody JobsRequest j){
+        List<String> emails=dservice.addJobs(j);
+        ResponseAddJobs responseMessage = new ResponseAddJobs();
         responseMessage.setError("user created");
+        responseMessage.setEmails(emails);
+        responseMessage.setJobrole(j.getJob_role());
         return responseMessage;
     }
 
@@ -186,7 +188,7 @@ public class dataController {
     @PutMapping("/updateStatus/{cid}/{jobid}")
     @PreAuthorize("hasAuthority('RECRUITER')")
     public void updateStatus(@PathVariable String cid,@PathVariable String jobid,@RequestBody String status){
-        dservice.updateStatus(cid, jobid,status);
+         dservice.updateStatus(cid, jobid,status);
     }
 
     @GetMapping("/getProfile/{cid}")
@@ -358,6 +360,18 @@ public class dataController {
 
         return dservice.getCandidateByskills(skills);
 
+    }
+
+    @PostMapping("/sendMail")
+    @PreAuthorize("hasAuthority('RECRUITER')")
+    public void sendMail(@RequestBody RequestMail requestMail ){
+        senderService.sendSimpleEmail(requestMail.getToemail(), requestMail.getSubject(), requestMail.getBody());
+    }
+
+    @GetMapping("/getRegisteredUser/{email}")
+    public boolean getRegisteredUser(@PathVariable String email){
+            return dservice.getRegisteredUser(email);
+            
     }
  
 }

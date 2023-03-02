@@ -152,7 +152,7 @@ export class ProfileComponent {
 
     }
     else{
-      this.passwordResponse="New password and confirm password didnot match";
+      this.passwordResponse="New password and confirm password did not match";
     }
   }
 

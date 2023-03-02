@@ -25,6 +25,7 @@ import { Ichangepassword } from './types/ChangePasswordType';
 })
 export class ServiceService {
 
+  public loginMessage:any="";
 
 
 
@@ -52,6 +53,7 @@ export class ServiceService {
     
     const candidatelogin={email:email,password:password}
     return this.http.post<Itoken>("http://localhost:8080/candidateLogin",candidatelogin)
+   
   }
 
   recruiterLogin(email:String,password:String):Observable<any>{
@@ -70,7 +72,12 @@ export class ServiceService {
       this.http.post<any>("http://localhost:8080/addJobs",addJobs).subscribe(response=>{
          console.log(response);
          this.router.navigate(['/recruiter/createdJobs']);
-    
+         for(var email of response.emails ){
+         const req={toemail:email,subject:"New Job Opening",body:"The New Job Opening with "+response.jobrole +" role has been created that matches you skills"}
+         this.http.post("http://localhost:8080/sendMail",req).subscribe(res=>{
+
+         })
+        }
        }
        )
     }
@@ -179,8 +186,8 @@ export class ServiceService {
 
   updateStatus(cid:String,job_id:String){
     this.http.put("http://localhost:8080/updateStatus/"+cid+"/"+job_id,"Shortlisted").subscribe(res=>{
-      console.log(res);
-      window.location.reload();
+     window.location.reload();
+
     })
   }
 
@@ -269,4 +276,9 @@ export class ServiceService {
     
     return this.http.put("http://localhost:8080/changePassword/"+cid,changePassword)
   }
+
+  getRegisteredUser(email:string):Observable<any>{
+    return this.http.get("http://localhost:8080/getRegisteredUser/"+email)
+  }
+
 }

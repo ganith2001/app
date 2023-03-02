@@ -15,6 +15,8 @@ public interface candidateSignupRepository extends CrudRepository<candidateSignu
 
     boolean existsByName(String username);
 
+    boolean existsByEmail(String email);
+
     candidateSignup findByEmail(String email);
 
     candidateSignup findByCid(String cid);

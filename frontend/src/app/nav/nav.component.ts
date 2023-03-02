@@ -33,14 +33,14 @@ export class NavComponent {
     
     })
     }
+
   }
   }
 
   onlogout(){
     sessionStorage.clear()
-    
     this.router.navigate(['/login']);
-    setTimeout(()=>{  window.location.reload() }, 100)
+    setTimeout(()=>{  window.location.reload() }, 1000)
  
     
   }

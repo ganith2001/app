@@ -1,10 +1,14 @@
 
   <h1 style="text-align: center;">Available Jobs</h1>
   <br>
-<div>
-  <mat-accordion>
  
-    <mat-expansion-panel *ngFor="let job of jobs">
+<div>
+  <input class="search" type="text" [(ngModel)]="searched" placeholder="  SEARCH JOB ROLES" aria-label="Search">
+  <br><br>
+  <mat-accordion *ngFor="let job of jobs">
+ 
+    <mat-expansion-panel *ngIf="job.job_role.toLowerCase().includes(searched.toLowerCase())" >
+    
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{job.job_role}}
@@ -29,7 +33,7 @@
      
      <button *ngIf="profile.pid==''"  disabled style="color: red;position: relative;left: 70%;" mat-button>Please Create Your Profile Before Applying</button>
      <button *ngIf="!(profile.pid=='') && (job.apply_by.localeCompare(date)<0) && !(appliedJobs.indexOf(job.job_id) > -1)"  disabled style="color: red;position: relative;left: 70%;" mat-button>You have passed the deadline</button>
-      <button *ngIf="!(appliedJobs.indexOf(job.job_id) > -1 && !(job.apply_by.localeCompare(date)<0)) && !(profile.pid=='') "   (click)="onApply(job.job_id)" style="position: relative;left: 90%;"  mat-button>Apply</button>
+      <button *ngIf="!(appliedJobs.indexOf(job.job_id) > -1 && !(job.apply_by.localeCompare(date)<0)) && !(profile.pid=='') "   (click)="onApply(job.job_id)" style="position: relative;left: 90%;"  mat-raised-button>Apply</button>
     
       <button *ngIf="appliedJobs.indexOf(job.job_id) > -1" [disabled]="true"  (click)="onApply(job.job_id)" style="position: relative;left: 90%;" mat-button>Applied</button>
     

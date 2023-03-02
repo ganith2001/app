@@ -194,8 +194,8 @@ public class dataservice {
 
     
      @Transactional
-    public void addJobs(JobsRequest jobRequest){
-        
+    public List<String> addJobs(JobsRequest jobRequest){
+        List<String> emails=new ArrayList<>();
         recruiterSignup rSignup = new recruiterSignup(jobRequest.getEmp_id(),null,null,null);
         Job job = new Job(jobRequest.getJob_role(),jobRequest.getCtc(),jobRequest.getLocation(),jobRequest.getApply_by(),jobRequest.getCgpa(),jobRequest.getExperiance(),jobRequest.getDescription(),rSignup);
         job=this.jobRepository.save(job);
@@ -209,15 +209,10 @@ public class dataservice {
 
         List<RequiredSkills> RequiredSkills =(List<RequiredSkills>) this.requiredSkillsRepository.saveAll(requiredSkills);
         if(RequiredSkills.size()>0){
-            List<String> emails = this.getCandidateByskills(jobRequest.getSkills());
-            for(String email:emails){
-                senderService.sendSimpleEmail(email,
-				"New Job Opening",
-				"The New Job Opening with "+job.getJob_role()+" role has been created that matches you skills");
-            }
+            emails = this.getCandidateByskills(jobRequest.getSkills());
             
         }
-
+        return emails;
 
     }
 
@@ -237,10 +232,10 @@ public class dataservice {
         this.appliedJobRepository.save(appliedJob);
 
         candidateSignup candidateSignup=this.cSRepository.findByCid(cid);
-      
+       
         senderService.sendSimpleEmail(candidateSignup.getEmail(),
-				"Congratulation !!!",
-				"You have been shortlisted !!!");
+				"Congratulations "+candidateSignup.getName(),
+				"You have been shortlisted");
     }
 
     public candidateProfile getProfile(String cid){
@@ -340,6 +335,10 @@ public class dataservice {
 
     public List<String> getCandidateByskills(List<String> skills){
         return this.cPRepository.findBycandidateSkills(skills);
+    }
+
+    public boolean getRegisteredUser(String email){
+        return this.cSRepository.existsByEmail(email);
     }
 
 }
