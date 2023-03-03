@@ -341,4 +341,21 @@ public class dataservice {
         return this.cSRepository.existsByEmail(email);
     }
 
+    public String forgotPassword(String email,String OTP,Long timestamp,ForgetPasswordRequest forgetPasswordRequest){
+
+        Instant instant = Instant.now();
+        long timeStampSeconds = instant.getEpochSecond();
+        if(OTP.equalsIgnoreCase(forgetPasswordRequest.getOtp()) && timeStampSeconds-timestamp<=60 ){
+            candidateSignup candidateSignup=this.cSRepository.findByEmail(email);
+            candidateSignup.setPassword(passwordEncoder.encode(forgetPasswordRequest.getPassword()));
+            candidateSignup a = this.cSRepository.save(candidateSignup);
+        if(a!=null){
+            return "Password changed successfully";
+        }
+        return "Could not Change password";
+        } 
+        
+        return "OTP is incorrect";
+    }
+
 }

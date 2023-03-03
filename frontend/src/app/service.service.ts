@@ -17,7 +17,7 @@ import { Idecoded } from './types/decodestokentype';
 import { IupdateProfile } from './types/updateProfileType';
 import { Icollegedetails } from './types/collegeDetailsType';
 import { Ichangepassword } from './types/ChangePasswordType';
-
+import { IForgetPassword } from './types/forgetpasswordrequesttype';
 
 
 @Injectable({
@@ -279,6 +279,10 @@ export class ServiceService {
 
   getRegisteredUser(email:string):Observable<any>{
     return this.http.get("http://localhost:8080/getRegisteredUser/"+email)
+  }
+
+  forgetPassword(email:String,forgetPassword:IForgetPassword):Observable<any>{
+    return this.http.put("http://localhost:8080/forgotPassword/"+email,forgetPassword)
   }
 
 }

@@ -30,12 +30,12 @@
         </mat-form-field></td>
 
         <td>
-            <button (click)="addSkills()" class="skillsbtn" mat-raised-butto>ADD</button>
+            <button  (click)="addSkills()" class="skillsbtn" mat-raised-butto>ADD</button>
         </td>
         </table>
         <table><tr>
         <td>
-            <button *ngFor="let sk of profile.skills;" mat-button disabled>{{sk}}</button>
+            <button style="color: black;" *ngFor="let sk of profile.skills;" mat-button >{{sk}}</button>
         </td>
         </tr>
         </table>

@@ -44,7 +44,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.csrf().disable().cors().and()
-                .authorizeHttpRequests().requestMatchers("/candidateSignup","/recruiterSignup","/recruiterLogin","/candidateLogin","/otpGenerate","/getRegisteredUser/*").permitAll()
+                .authorizeHttpRequests().requestMatchers("/forgotPassword/*","/candidateSignup","/recruiterSignup","/recruiterLogin","/candidateLogin","/otpGenerate","/getRegisteredUser/*").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/sendMail","/getProfile/*","/authenticate","/getCandidateBySkills","/getRecruiterDetails/*","/getCandidateDetails/*","/changePassword/*","/deleteResume/*","/getAllJobs","/getJobsByEmpId/*","/getJobsByEmpId/*","/deleteJobsByJobId/*","/getResume/*","/download/*","/updateCollege/*","/deleteSkills/**","/updateSkills/*","/updateProfile/*","/getAppliedjobsIdJobAndShortLists/*","/getAppliedJobsIdByCid/*","/addJobs","/applyJobs","/updateStatus/**","/getSkills","/createProfile","/upload","/getAppliedJobsByCid/*","/getCandidatesByJobid/*","/deleteJob/*")
                 .authenticated().and()

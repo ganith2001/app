@@ -373,5 +373,23 @@ public class dataController {
             return dservice.getRegisteredUser(email);
             
     }
+
+    @PutMapping("/forgotPassword/{email}")
+    public UserCreateResponse forgotPassword(@PathVariable String email,@RequestBody ForgetPasswordRequest forgetPasswordRequest){
+
+        
+        
+        UserCreateResponse userCreateResponse = new UserCreateResponse();
+    
+        if(OTP != null && timestamp != null){ 
+            String msg = dservice.forgotPassword(email, this.OTP, this.timestamp, forgetPasswordRequest);
+            userCreateResponse.setRes(msg);
+        }
+        else{
+            userCreateResponse.setRes("No OTP Generated");
+        }
+        return userCreateResponse;
+
+    }
  
 }
