@@ -21,11 +21,17 @@ export class CandidateGuardService implements CanActivate {
       } 
       else{
         let decodedToken:Idecoded = jwt_decode(token);
-          if(decodedToken.Role!="CANDIDATE"){
-            alert('You are not an authorized candidate ....');
-            this.router.navigate(['/recruiter/createdJobs']);
-            return false;
-          }
+        if(decodedToken.Role=="ADMIN"){
+          alert('You are not an authorized candidate ....');
+          this.router.navigate(['/admin/addRecruiter']);
+          return false;
+        }
+        else if(decodedToken.Role=="RECRUITER"){
+          alert('You are not an authorized candidate ....');
+          this.router.navigate(['/recruiter/createdJobs']);
+          return false;
+
+        }
       }
       return true;
   }

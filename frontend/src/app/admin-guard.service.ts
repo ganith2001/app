@@ -4,8 +4,11 @@ import { Router, CanActivate, ActivatedRouteSnapshot,RouterStateSnapshot } from 
 import jwt_decode from 'jwt-decode';
 import { Idecoded } from './types/decodestokentype';
 
-@Injectable()
-export class RecruiterGuardService implements CanActivate {
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuardService {
+
   constructor(private router:Router ) {
   }
 
@@ -14,23 +17,23 @@ export class RecruiterGuardService implements CanActivate {
 
      const token=sessionStorage.getItem("token")
       if (token==null)  {
-          alert('You are not an authorized employee ...');
+          alert('You are not an authorized admin ...');
           this.router.navigate(['/login']);
           return false;
       } 
       else{
         let decodedToken:Idecoded = jwt_decode(token);
-        if(decodedToken.Role=="ADMIN"){
-          alert('You are not an authorized recruiter ....');
-          this.router.navigate(['/admin/addRecruiter']);
-          return false;
-        }
-        else if(decodedToken.Role=="CANDIDATE"){
-          alert('You are not an authorized recruiter ....');
-          this.router.navigate(['/candidate/jobs']);
-          return false;
+          if(decodedToken.Role=="CANDIDATE"){
+            alert('You are not an authorized admin ....');
+            this.router.navigate(['/candidate/jobs']);
+            return false;
+          }
+          else if(decodedToken.Role=="RECRUITER"){
+            alert('You are not an authorized admin ....');
+            this.router.navigate(['/recruiter/createdJobs']);
+            return false;
 
-        }
+          }
       }
       return true;
   }

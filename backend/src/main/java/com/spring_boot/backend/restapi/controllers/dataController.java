@@ -132,8 +132,20 @@ public class dataController {
     }
 
     @PostMapping("/recruiterSignup")
-    public String add(@RequestBody recruiterSignup r){
-        return dservice.addRecruiter(r);
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public UserCreateResponse add(@RequestBody recruiterSignup r){
+        UserCreateResponse userCreateResponse=new UserCreateResponse();
+        r.setRoles("RECRUITER");
+        String res=dservice.addRecruiter(r);
+        userCreateResponse.setRes(res);
+        return userCreateResponse;
+        
+    }
+
+    @GetMapping("/getAllRecruiters")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<recruiterSignup> getAllRecruiters(){
+        return dservice.getAllRecruiters();
     }
 
     @PostMapping("/recruiterLogin")

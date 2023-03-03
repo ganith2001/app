@@ -8,11 +8,13 @@ import { JobsComponent } from './jobs/jobs.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AppliedJobsComponent } from './applied-jobs/applied-jobs.component';
 import { CreatedJobsComponent } from './created-jobs/created-jobs.component';
+import { AddRecruiterComponent } from './add-recruiter/add-recruiter.component';
 
 
 import { AuthGuardService } from './auth-guard.service';
 import { CandidateGuardService } from './candidate-guard.service';
 import { RecruiterGuardService } from './recruiter-guard.service';
+import { AdminGuardService } from './admin-guard.service';
 
 
 
@@ -23,7 +25,8 @@ var routes: Routes = [
   { path: 'candidate/addprofile', component: AddProfileComponent,canActivate:[CandidateGuardService]},
   { path: 'candidate/jobs' , component:JobsComponent,canActivate:[CandidateGuardService]},
   { path: 'candidate/profile' , component:ProfileComponent,canActivate:[CandidateGuardService]},
-  { path: 'candidate/appliedJobs' , component:AppliedJobsComponent,canActivate:[CandidateGuardService]},   
+  { path: 'candidate/appliedJobs' , component:AppliedJobsComponent,canActivate:[CandidateGuardService]}, 
+  {path:'admin/addRecruiter', component:AddRecruiterComponent,canActivate:[AdminGuardService]},  
   {path:'',redirectTo:'/login',pathMatch:"full"},
 
   

@@ -15,6 +15,7 @@ public class recruiterSignup {
     private String empid;
     private String name;
     private String email;
+    private String roles;
     
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
@@ -29,6 +30,18 @@ public class recruiterSignup {
         this.email=email;
         this.password=password;     
     }
+
+    
+
+    public String getRoles() {
+        return roles;
+    }
+
+
+    public void setRoles(String roles) {
+        this.roles = roles;
+    }
+
 
     public String getEmp_id() {
         return empid;

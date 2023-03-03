@@ -17,11 +17,14 @@ export class AuthGuardService implements CanActivate {
         if (token!=null)  {
             alert('Please Logout ...');
             let decodedToken:Idecoded = jwt_decode(token);
-            if(decodedToken.Role!="CANDIDATE"){     
+            if(decodedToken.Role=="CANDIDATE"){     
+              this.router.navigate(['/candidate/jobs']);
+            }
+            else if(decodedToken.Role=="RECRUITER"){
               this.router.navigate(['/recruiter/createdJobs']);
             }
-            else if(decodedToken.Role!="RECRUITER"){
-              this.router.navigate(['/candidate/jobs']);
+            else if(decodedToken.Role=="ADMIN"){
+              this.router.navigate(['/admin/addRecruiter']);
             }
             return false;
          

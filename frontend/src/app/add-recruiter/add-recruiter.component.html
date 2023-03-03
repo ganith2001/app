@@ -1,0 +1,50 @@
+<h1>Add Recruiters</h1>
+<div>
+<form class="example-form">
+    
+    <table class="example-full-width" cellspacing="0"><tr>
+        <td><mat-form-field class="example-full-width">
+            <mat-label>EmpId</mat-label>
+            <input matInput [(ngModel)]="recruiter.emp_id"   name="emp_id" required>
+          </mat-form-field></td>
+   
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input type="text" matInput [(ngModel)]="recruiter.email"   name="email" required>
+      </mat-form-field></td>
+      <td><mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="recruiter.name"   name="name" required>
+      </mat-form-field></td>
+
+  <td><mat-form-field class="example-full-width">
+    <mat-label>Password</mat-label>
+    <input type="text" matInput  [(ngModel)]="recruiter.password"  name="password" required>
+  </mat-form-field></td>
+  <td><button (click)="onSubmit()"  class="skillsbtn" mat-raised-button>Submit</button></td>
+    </tr></table>
+    
+</form>
+
+</div>
+<hr>
+
+<h1>Created Recuiters</h1>
+<div>
+<table style="width: 50%;">
+    <thead>
+    <tr>
+        <td>Emp-Id</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Role</td>
+    </tr>
+    </thead>
+    <tr *ngFor="let recruiter of getRecruters ">
+        <td>{{recruiter.emp_id}}</td>
+        <td>{{recruiter.name}}</td>
+        <td>{{recruiter.email}}</td>
+        <td>{{recruiter.roles}}</td>
+    </tr>
+</table>
+</div>

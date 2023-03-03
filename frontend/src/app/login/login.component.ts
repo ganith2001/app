@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { ServiceService } from '../service.service';
 import { Router } from '@angular/router';
 import { IForgetPassword } from '../types/forgetpasswordrequesttype';
+import jwt_decode from 'jwt-decode';
+import { Idecoded } from '../types/decodestokentype';
 
 @Component({
   selector: 'app-login',
@@ -118,8 +120,14 @@ export class LoginComponent {
       this.service.recruiterLogin(this.rLogin.email,this.rLogin.password).subscribe(response=>{
         console.log(response.message);
         if(response.message=="Successfull"){
+          let decodedToken:Idecoded = jwt_decode(response.token);
           sessionStorage.setItem('token',response.token)
-          this.router.navigate(['/recruiter/createdJobs']);
+          if(decodedToken.Role=="ADMIN"){
+            this.router.navigate(['/admin/addRecruiter']);
+          }
+          else{
+            this.router.navigate(['/recruiter/createdJobs']);
+          }
           setTimeout(()=>{  window.location.reload() }, 100)
         }
         else{

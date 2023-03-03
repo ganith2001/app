@@ -35,6 +35,7 @@ import { TokenInterceptorService } from './token-interceptor.service';
 import { AuthGuardService } from './auth-guard.service';
 import { CandidateGuardService } from './candidate-guard.service';
 import { RecruiterGuardService } from './recruiter-guard.service';
+import { AddRecruiterComponent } from './add-recruiter/add-recruiter.component';
 
 
 
@@ -48,7 +49,8 @@ import { RecruiterGuardService } from './recruiter-guard.service';
     JobsComponent,
     ProfileComponent,
     AppliedJobsComponent,
-    CreatedJobsComponent
+    CreatedJobsComponent,
+    AddRecruiterComponent
 
 
   ],

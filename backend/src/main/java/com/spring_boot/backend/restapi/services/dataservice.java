@@ -358,4 +358,8 @@ public class dataservice {
         return "OTP is incorrect";
     }
 
+    public List<recruiterSignup> getAllRecruiters(){
+        return (List<recruiterSignup>)this.rSRepository.findAll();
+    }
+
 }

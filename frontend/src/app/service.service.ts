@@ -18,7 +18,7 @@ import { IupdateProfile } from './types/updateProfileType';
 import { Icollegedetails } from './types/collegeDetailsType';
 import { Ichangepassword } from './types/ChangePasswordType';
 import { IForgetPassword } from './types/forgetpasswordrequesttype';
-
+import { IAddRecruiter } from './types/addrecruitertype';
 
 @Injectable({
   providedIn: 'root'
@@ -285,4 +285,15 @@ export class ServiceService {
     return this.http.put("http://localhost:8080/forgotPassword/"+email,forgetPassword)
   }
 
+  addRecruiter(addRecruiter:IAddRecruiter){
+
+    this.http.post("http://localhost:8080/recruiterSignup",addRecruiter).subscribe(res=>{
+      window.location.reload();
+    })
+
+  }
+
+  getAllRecruiters():Observable<any>{
+    return this.http.get("http://localhost:8080/getAllRecruiters")
+  }
 }

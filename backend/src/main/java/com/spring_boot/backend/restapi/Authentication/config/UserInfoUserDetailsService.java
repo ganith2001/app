@@ -37,7 +37,7 @@ public class UserInfoUserDetailsService implements UserDetailsService {
         }
         else{
             recruiterSignup userInfo2 = rrepository.findByEmpid(username);
-            return new UserInfoUserDetails(userInfo2,"RECRUITER");
+            return new UserInfoUserDetails(userInfo2,userInfo2.getRoles());
         }
 
         
